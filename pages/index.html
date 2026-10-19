@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>一掷千金 - Deal or No Deal</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="top-bar">
+            <div id="ticket-display">🎫 <span id="ticket-count">1</span></div>
+            <div id="round-info">准备开始</div>
+            <div id="remaining-info">剩余: 26</div>
+        </div>
+
+        <!-- 主持人小博 -->
+        <div id="host-area">
+            <div id="host-character">
+                <div id="host-body">
+                    <div id="host-head">
+                        <div id="host-hair"></div>
+                        <div id="host-face">
+                            <div class="host-eye left"></div>
+                            <div class="host-eye right"></div>
+                            <div id="host-nose"></div>
+                            <div id="host-mouth"></div>
+                        </div>
+                        <div id="host-bowtie"></div>
+                    </div>
+                    <div id="host-suit"></div>
+                </div>
+            </div>
+            <div id="speech-bubble">
+                <div id="speech-text">欢迎来到一掷千金！</div>
+                <div id="speech-arrow"></div>
+            </div>
+        </div>
+
+        <!-- 门票面板 -->
+        <div id="ticket-panel" class="hidden">
+            <div id="ticket-title">🎫 门票</div>
+            <div id="ticket-info">今日剩余: <span id="ticket-remain">1</span> 张</div>
+            <div id="ticket-actions">
+                <button id="btn-play" class="btn btn-primary">使用门票开始</button>
+                <button id="btn-share" class="btn btn-secondary">分享好友 (+1)</button>
+                <button id="btn-ad" class="btn btn-secondary">看广告 (+1)</button>
+            </div>
+        </div>
+
+        <div id="choose-hint" class="hidden">点击一个箱子作为你的命运之箱</div>
+        <div id="boxes-container" class="hidden"></div>
+
+        <div id="my-box-bar" class="hidden">
+            <span>📦 我的箱子: <strong id="my-box-num">-</strong></span>
+            <span id="my-box-hint">(最后揭晓)</span>
+        </div>
+
+        <div id="amounts-panel" class="hidden">
+            <div id="amounts-title">💰 金额面板</div>
+            <div id="amounts-grid"></div>
+        </div>
+
+        <!-- 银行家出价 -->
+        <div id="banker-overlay" class="hidden">
+            <div id="banker-panel">
+                <div id="banker-icon">📞</div>
+                <div id="banker-label">银行家来电</div>
+                <div id="banker-offer-amount">$0</div>
+                <div id="banker-hint">银行家想买你的箱子</div>
+                <div id="banker-actions">
+                    <button id="btn-deal" class="btn btn-green">成交 (Deal)</button>
+                    <button id="btn-no-deal" class="btn btn-red">继续 (No Deal)</button>
+                    <button id="btn-bargain" class="btn btn-yellow">讨价还价 💬</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 讨价还价 -->
+        <div id="bargain-overlay" class="hidden">
+            <div id="bargain-panel">
+                <div id="bargain-title">💬 讨价还价</div>
+                <div id="bargain-desc">输入你想要的价格告诉银行家：</div>
+                <div id="bargain-input-row">
+                    <span id="bargain-dollar">$</span>
+                    <input id="bargain-input" type="number" min="1" placeholder="输入金额">
+                </div>
+                <button id="btn-bargain-submit" class="btn btn-yellow">出价！</button>
+                <div id="bargain-status" class="hidden">银行家正在考虑...</div>
+            </div>
+        </div>
+
+        <!-- 结果 -->
+        <div id="result-overlay" class="hidden">
+            <div id="result-panel">
+                <div id="result-title">游戏结束</div>
+                <div id="result-box-scene">
+                    <div id="result-box">
+                        <div class="rbox-face rbox-front">
+                            <div class="box-num">?</div>
+                            <div class="box-lbl">YOUR BOX</div>
+                        </div>
+                        <div class="rbox-face rbox-back">
+                            <div id="result-box-val">$0</div>
+                            <div class="box-lbl">美元</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="result-msg"></div>
+                <div id="result-prize"></div>
+                <button id="btn-restart" class="btn btn-primary">再来一局</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/gameConfig.js"></script>
+    <script src="js/gameManager.js"></script>
+    <script src="js\soundFX.js"></script>
+    <script src="js/gameUI.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

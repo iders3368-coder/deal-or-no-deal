@@ -1,0 +1,12 @@
+{
+  "miniprogramRoot": "./",
+  "projectname": "yizhiqianjin",
+  "description": "一掷千金 Deal or No Deal 抖音小游戏",
+  "appid": "ttXXXXXXXXXXXXXXXX",
+  "setting": {
+    "es6": true,
+    "minified": true,
+    "urlCheck": false
+  },
+  "condition": {}
+}
