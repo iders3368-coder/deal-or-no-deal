@@ -9,15 +9,20 @@
     const params = new URLSearchParams(window.location.search);
     const forcedWidth = Number(params.get('w'));
     const forcedHeight = Number(params.get('h'));
-    const viewport = {
-        width: Number.isFinite(forcedWidth) && forcedWidth > 0 ? Math.floor(forcedWidth) : window.innerWidth,
-        height: Number.isFinite(forcedHeight) && forcedHeight > 0 ? Math.floor(forcedHeight) : window.innerHeight
-    };
-    if (viewport.width !== window.innerWidth || viewport.height !== window.innerHeight) {
-        canvas.style.width = viewport.width + 'px';
-        canvas.style.height = viewport.height + 'px';
-        document.body.style.width = viewport.width + 'px';
-        document.body.style.height = viewport.height + 'px';
+
+    function getViewport() {
+        return {
+            width: Number.isFinite(forcedWidth) && forcedWidth > 0 ? Math.floor(forcedWidth) : window.innerWidth,
+            height: Number.isFinite(forcedHeight) && forcedHeight > 0 ? Math.floor(forcedHeight) : window.innerHeight
+        };
+    }
+
+    const initialViewport = getViewport();
+    if (initialViewport.width !== window.innerWidth || initialViewport.height !== window.innerHeight) {
+        canvas.style.width = initialViewport.width + 'px';
+        canvas.style.height = initialViewport.height + 'px';
+        document.body.style.width = initialViewport.width + 'px';
+        document.body.style.height = initialViewport.height + 'px';
         document.body.style.overflow = 'hidden';
     }
 
@@ -28,11 +33,18 @@
 
     function makeTouch(event) {
         const rect = canvas.getBoundingClientRect();
+        const viewport = getViewport();
+        // 预览页面可能被外层缩放或处于高 DPI 截图环境，
+        // 把浏览器视口坐标换算回 Canvas 的逻辑坐标后再做命中测试。
+        const scaleX = rect.width > 0 ? viewport.width / rect.width : 1;
+        const scaleY = rect.height > 0 ? viewport.height / rect.height : 1;
+        const x = (event.clientX - rect.left) * scaleX;
+        const y = (event.clientY - rect.top) * scaleY;
         return {
-            clientX: event.clientX - rect.left,
-            clientY: event.clientY - rect.top,
-            pageX: event.pageX,
-            pageY: event.pageY
+            clientX: x,
+            clientY: y,
+            pageX: x,
+            pageY: y
         };
     }
 
@@ -159,6 +171,7 @@
         __shareInfo: null,
         createCanvas() { return canvas; },
         getSystemInfoSync() {
+            const viewport = getViewport();
             const width = viewport.width;
             const height = viewport.height;
             return {
@@ -166,12 +179,14 @@
                 windowHeight: height,
                 screenWidth: width,
                 screenHeight: height,
-                pixelRatio: window.devicePixelRatio || 1,
+                // 预览统一按 CSS 像素渲染，避免高 DPI 截图与鼠标坐标比例不一致。
+                pixelRatio: 1,
                 safeArea: { top: 0, bottom: height, left: 0, right: width, width, height }
             };
         },
         getMenuButtonBoundingClientRect() {
-            return { top: 8, right: window.innerWidth - 8, bottom: 40, left: window.innerWidth - 96, width: 88, height: 32 };
+            const viewport = getViewport();
+            return { top: 8, right: viewport.width - 8, bottom: 40, left: viewport.width - 96, width: 88, height: 32 };
         },
         showToast(options) {
             showToast(options && options.title);
