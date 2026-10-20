@@ -1,6 +1,7 @@
 {
   "deviceOrientation": "portrait",
   "showStatusBar": false,
+  "menuButtonStyle": "dark",
   "networkTimeout": {
     "request": 5000,
     "connectSocket": 5000,

@@ -18,3 +18,13 @@ desktop.ini
 # 临时文件
 *.tmp
 .cache/
+
+# 浏览器预览构建产物与截图
+preview/bundle.js
+preview/*.png
+preview/*.jpg
+preview/*.jpeg
+
+# 本地环境变量
+.env
+.env.*

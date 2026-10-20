@@ -1,0 +1,15 @@
+{
+  "name": "deal-or-no-deal-douyin",
+  "version": "2.0.0",
+  "private": true,
+  "description": "抖音小游戏《一掷千金》Canvas 版",
+  "scripts": {
+    "test": "node --test",
+    "preview": "node tools/build-preview.js && node server.js",
+    "build:preview": "node tools/build-preview.js",
+    "audio": "node tools/generate-audio.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

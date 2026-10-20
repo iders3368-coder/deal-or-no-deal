@@ -1,34 +1,24 @@
 @echo off
-title Deal or No Deal - Local Test
-echo.
-echo ========================================
-echo   Deal or No Deal - Local Server
-echo ========================================
-echo.
-echo Starting server...
-echo.
+chcp 65001 >nul
+cd /d "%~dp0"
 
 where node >nul 2>nul
-if %errorlevel% equ 0 (
-    echo [OK] Node.js detected
-    echo.
-    start http://localhost:3000
-    node server.js
-    goto :end
+if errorlevel 1 (
+    echo 未检测到 Node.js，请先安装 Node.js 18 或更高版本。
+    pause
+    exit /b 1
 )
 
-where python >nul 2>nul
-if %errorlevel% equ 0 (
-    echo [OK] Python detected
-    echo.
-    start http://localhost:3000
-    python -m http.server 3000
-    goto :end
+echo 正在构建浏览器预览...
+node tools\build-preview.js
+if errorlevel 1 (
+    echo 预览构建失败。
+    pause
+    exit /b 1
 )
 
-echo [ERROR] Node.js or Python not found
-echo Please install Node.js or Python
-echo.
-pause
-
-:end
+echo 正在启动本地预览服务器...
+start "deal-or-no-deal preview" /D "%~dp0" cmd /k "node server.js"
+timeout /t 1 >nul
+start "" http://127.0.0.1:3000/preview/
+exit /b 0

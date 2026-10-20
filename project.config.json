@@ -1,12 +1,26 @@
 {
-  "miniprogramRoot": "./",
-  "projectname": "yizhiqianjin",
-  "description": "一掷千金 Deal or No Deal 抖音小游戏",
   "appid": "ttXXXXXXXXXXXXXXXX",
+  "projectname": "deal-or-no-deal",
+  "description": "一掷千金 Deal or No Deal 抖音小游戏（Canvas 版）",
   "setting": {
     "es6": true,
     "minified": true,
     "urlCheck": false
   },
-  "condition": {}
+  "packOptions": {
+    "ignore": [
+      { "type": "folder", "value": "legacy-web" },
+      { "type": "folder", "value": "preview" },
+      { "type": "folder", "value": "test" },
+      { "type": "folder", "value": "tools" },
+      { "type": "folder", "value": "node_modules" },
+      { "type": "file", "value": "server.js" },
+      { "type": "file", "value": "start.bat" },
+      { "type": "file", "value": "package.json" },
+      { "type": "file", "value": "package-lock.json" },
+      { "type": "file", "value": ".gitignore" },
+      { "type": "file", "value": "README.md" },
+      { "type": "file", "value": "AGENTS.md" }
+    ]
+  }
 }
