@@ -84,6 +84,12 @@ const GameConfig = {
         virtualNotice: '游戏内筹码仅为虚拟娱乐，无现金价值。'
     },
 
+    // 主持人台词节奏（单位：毫秒）
+    speech: {
+        charDelay: 55,  // 每个字出现的间隔，越大越慢
+        hold: 700       // 整句显示完后停留多久，再触发下一句
+    },
+
     states: {
         WAITING_PAYMENT: 'waiting_payment',
         READY: 'ready',

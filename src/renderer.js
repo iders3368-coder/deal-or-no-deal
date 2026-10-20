@@ -156,22 +156,42 @@ class Renderer {
             text: String(text || ''),
             start: Date.now(),
             visible: '',
+            typedAllAt: null,
+            skip: false,
             done: false,
             callback: typeof callback === 'function' ? callback : null
         };
     }
 
+    finishSpeech() {
+        if (!this.speech || this.speech.done) return;
+        this.speech.visible = this.speech.text;
+        this.speech.done = true;
+        const callback = this.speech.callback;
+        this.speech.callback = null;
+        if (callback) callback();
+    }
+
     updateSpeech(now) {
         if (!this.speech) return;
+
+        // 点击跳过时立即结束当前句，不再等待句末停顿。
+        if (this.speech.skip) {
+            this.finishSpeech();
+            return;
+        }
+
         const chars = Array.from(this.speech.text);
         const elapsed = Math.max(0, now - this.speech.start);
-        const count = this.speech.skip ? chars.length : Math.min(chars.length, Math.floor(elapsed / 26));
+        const charDelay = Math.max(10, Number(GameConfig.speech && GameConfig.speech.charDelay) || 55);
+        const hold = Math.max(0, Number(GameConfig.speech && GameConfig.speech.hold) || 0);
+        const count = Math.min(chars.length, Math.floor(elapsed / charDelay));
         this.speech.visible = chars.slice(0, count).join('');
-        if (count >= chars.length && !this.speech.done) {
-            this.speech.done = true;
-            const callback = this.speech.callback;
-            this.speech.callback = null;
-            if (callback) callback();
+
+        if (count >= chars.length) {
+            // 整句出现后先停留一段时间，让玩家看完再触发下一句。
+            if (this.speech.typedAllAt === null) this.speech.typedAllAt = now;
+            if (now - this.speech.typedAllAt >= hold) this.finishSpeech();
         }
     }
 
