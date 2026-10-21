@@ -13,6 +13,7 @@
       { "type": "folder", "value": "preview" },
       { "type": "folder", "value": "test" },
       { "type": "folder", "value": "tools" },
+      { "type": "folder", "value": "store" },
       { "type": "folder", "value": "node_modules" },
       { "type": "file", "value": "server.js" },
       { "type": "file", "value": "start.bat" },

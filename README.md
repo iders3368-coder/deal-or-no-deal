@@ -122,7 +122,9 @@ deal-or-no-deal-main/
 ├── test/                    # Node 自动化测试
 ├── tools/
 │   ├── build-preview.js     # 浏览器预览打包
-│   └── generate-audio.js    # 重新生成音效
+│   ├── generate-audio.js    # 重新生成音效
+│   └── generate-store-icon.ps1 # 重新生成上架图标
+├── store/                   # 上架图标和文案，不进入小游戏包
 ├── preview/                 # 仅浏览器预览使用，不进入小游戏包
 ├── legacy-web/              # 旧版 H5 原型，不进入小游戏包
 ├── server.js                # 本地安全预览服务器
@@ -139,7 +141,7 @@ deal-or-no-deal-main/
 - [ ] 在抖音开发者工具中完成“预览”和“真机调试”。
 - [ ] 在真机上验证：开箱、银行家报价、成交、继续、讨价还价、终局、再来一局。
 - [ ] 在真机上验证：每日免费门票、广告完整观看奖励、广告中途关闭不发奖、分享不发奖。
-- [ ] 确认 `legacy-web/`、`preview/`、`test/`、`tools/` 不会出现在上传包中（`project.config.json` 的 `packOptions.ignore`）。
+- [ ] 确认 `store/`、`legacy-web/`、`preview/`、`test/`、`tools/` 不会出现在上传包中（`project.config.json` 的 `packOptions.ignore`）。
 - [ ] 如果所用开发者工具版本不识别 `packOptions.ignore`，请在上传前手动移出这些目录，避免旧版 HTML/CSS 或预览文件被一起打包。
 - [ ] 在抖音开放平台配置小游戏名称、图标、隐私政策、适龄提示和虚拟道具说明。
 - [ ] 游戏内金额为虚拟筹码，不宣传现金兑换或真实博彩。
